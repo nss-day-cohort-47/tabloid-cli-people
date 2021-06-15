@@ -42,7 +42,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     }
                     else
                     {
-                        return new JournalDetailManager(this, _connectionString, journal.Id);
+                        //Commented out for now to allow the code to run
+                        return this; //new JournalDetailManager(this, _connectionString, journal.Id);
                     }
                 case "3":
                     Add();
@@ -84,7 +85,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < entries.Count; i++)
             {
                 Journal entry = entries[i];
-                Console.WriteLine($" {i + 1}) {entry.FullName}");
+                Console.WriteLine($" {i + 1}) {entry.Title}");
             }
             Console.Write("> ");
 
@@ -112,7 +113,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Content: ");
             entry.Content = Console.ReadLine();
 
-            entry.CreateDateTime = new DateTime();
+            entry.CreateDateTime = DateTime.Now;
             Console.WriteLine($"{entry.CreateDateTime}");
 
             _journalRepository.Insert(entry);
