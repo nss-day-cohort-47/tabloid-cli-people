@@ -10,6 +10,7 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
@@ -118,10 +119,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Publish Date: ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
-            _postRepository.Insert(post);
-
             Console.WriteLine("Select an author: ");
-
+            post.Author = Choose();
             Author Choose(string prompt = null)
             {
                 if (prompt == null)
@@ -152,6 +151,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     return null;
                 }
             }
+
+            _postRepository.Insert(post);
+
         }
 
         private void Edit()
