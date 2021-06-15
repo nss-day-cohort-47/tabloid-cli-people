@@ -106,7 +106,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            Console.WriteLine("New Author");
+            Console.WriteLine("New Post");
             Post post = new Post();
 
             Console.Write("Title: ");
@@ -136,18 +136,18 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Title = title;
             }
-            Console.Write("New last name (blank to leave unchanged: ");
+            Console.Write("New URL (blank to leave unchanged: ");
             string Url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(Url))
             {
                 postToEdit.Url = Url;
             }
-            Console.Write("New bio (blank to leave unchanged: ");
-            string PublishDateTime = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(PublishDateTime))
-            {
-                postToEdit.PublishDateTime = PublishDateTime;
-            }
+            //Console.Write("New bio (blank to leave unchanged: ");
+            //string PublishDateTime = Console.ReadLine();
+            //if (!string.IsNullOrWhiteSpace(PublishDateTime))
+            //{
+            //    postToEdit.PublishDateTime = PublishDateTime;
+            //}
 
             _postRepository.Update(postToEdit);
         }
