@@ -4,27 +4,27 @@ using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
-    public class JournalManager : IUserInterfaceManager
+    public class BlogManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
-        private JournalRepository _journalRepository;
+        private BlogRepository _blogRepository;
         private string _connectionString;
 
-        public JournalManager(IUserInterfaceManager parentUI, string connectionString)
+        public BlogManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
-            _journalRepository = new JournalRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
             _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
         {
-            Console.WriteLine("Journal Menu");
-            Console.WriteLine(" 1) List Journal Entries");
-            Console.WriteLine(" 2) Entry Details");
-            Console.WriteLine(" 3) Add Entry");
-            Console.WriteLine(" 4) Edit Entry");
-            Console.WriteLine(" 5) Remove Entry");
+            Console.WriteLine("Blog Menu");
+            Console.WriteLine(" 1) List Blogs");
+            Console.WriteLine(" 2) Blog Details");
+            Console.WriteLine(" 3) Add Blog");
+            Console.WriteLine(" 4) Edit Blog");
+            Console.WriteLine(" 5) Remove Blog");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -35,15 +35,14 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Journal journal = Choose();
-                    if (journal == null)
+                    Blog blog = Choose();
+                    if (blog == null)
                     {
                         return this;
                     }
                     else
                     {
-                        //Commented out for now to allow the code to run
-                        return this; //new JournalDetailManager(this, _connectionString, journal.Id);
+                        return new BlogDetailManager(this, _connectionString, blog.Id);
                     }
                 case "3":
                     Add();
@@ -64,28 +63,28 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            List<Journal> entries = _journalRepository.GetAll();
-            foreach (Journal e in entries)
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog b in blogs)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(b);
             }
         }
 
-        private Journal Choose(string prompt = null)
+        private Blog Choose(string prompt = null)
         {
             if (prompt == null)
             {
-                prompt = "Please choose an Entry:";
+                prompt = "Please choose a Blog:";
             }
 
             Console.WriteLine(prompt);
 
-            List<Journal> entries = _journalRepository.GetAll();
+            List<Blog> blogs = _blogRepository.GetAll();
 
-            for (int i = 0; i < entries.Count; i++)
+            for (int i = 0; i < blogs.Count; i++)
             {
-                Journal entry = entries[i];
-                Console.WriteLine($" {i + 1}) {entry.Title}");
+                Blog blog = blogs[i];
+                Console.WriteLine($" {i + 1}) {blog.Title}");
             }
             Console.Write("> ");
 
@@ -93,7 +92,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return entries[choice - 1];
+                return blogs[choice - 1];
             }
             catch (Exception ex)
             {
@@ -104,25 +103,25 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            Console.WriteLine("New Entry");
-            Journal entry = new Journal();
+            Console.WriteLine("New Blog");
+            Blog blog = new Blog();
 
             Console.Write("Title: ");
-            entry.Title = Console.ReadLine();
+            blog.Title = Console.ReadLine();
 
-            Console.Write("Content: ");
-            entry.Content = Console.ReadLine();
+            Console.Write("Url: ");
+            blog.Url = Console.ReadLine();
 
-            entry.CreateDateTime = DateTime.Now;
-            Console.WriteLine($"{entry.CreateDateTime}");
+            //Console.Write("Bio: ");
+            //author.Bio = Console.ReadLine();
 
-            _journalRepository.Insert(entry);
+            _blogRepository.Insert(blog);
         }
 
         private void Edit()
         {
-            Journal entryToEdit = Choose("Which entry would you like to edit?");
-            if (entryToEdit == null)
+            Blog blogToEdit = Choose("Which blog would you like to edit?");
+            if (blogToEdit == null)
             {
                 return;
             }
@@ -132,24 +131,30 @@ namespace TabloidCLI.UserInterfaceManagers
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
-                entryToEdit.Title = title;
+                blogToEdit.Title = title;
             }
-            Console.Write("Edit content (blank to leave unchanged: ");
-            string content = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(content))
+            Console.Write("New url (blank to leave unchanged: ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
             {
-                entryToEdit.Content = content;
+                blogToEdit.Url = url;
             }
+            //Console.Write("New bio (blank to leave unchanged: ");
+            //string bio = Console.ReadLine();
+            //if (!string.IsNullOrWhiteSpace(bio))
+            //{
+            //    blogToEdit.Bio = bio;
+            //}
 
-            _journalRepository.Update(entryToEdit);
+            _blogRepository.Update(blogToEdit);
         }
 
         private void Remove()
         {
-            Journal entryToDelete = Choose("Which entry would you like to remove?");
-            if (entryToDelete != null)
+            Blog blogToDelete = Choose("Which blog would you like to remove?");
+            if (blogToDelete != null)
             {
-                _journalRepository.Delete(entryToDelete.Id);
+                _blogRepository.Delete(blogToDelete.Id);
             }
         }
     }
