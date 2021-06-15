@@ -119,6 +119,39 @@ namespace TabloidCLI.UserInterfaceManagers
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
             _postRepository.Insert(post);
+
+            Console.WriteLine("Select an author: ");
+
+            Author Choose(string prompt = null)
+            {
+                if (prompt == null)
+                {
+                    prompt = "Please choose an Author:";
+                }
+
+                Console.WriteLine(prompt);
+
+                List<Author> authors = _authorRepository.GetAll();
+
+                for (int i = 0; i < authors.Count; i++)
+                {
+                    Author author = authors[i];
+                    Console.WriteLine($" {i + 1}) {author.FullName}");
+                }
+                Console.Write("> ");
+
+                string input = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(input);
+                    return authors[choice - 1];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Selection");
+                    return null;
+                }
+            }
         }
 
         private void Edit()
