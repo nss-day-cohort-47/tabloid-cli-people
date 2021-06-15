@@ -1,6 +1,6 @@
-﻿namespace TabloidCLI.UserInterfaceManagers
-{
-    internal class PostDetailManager : IUserInterfaceManager
-    {
-    }
-}
+﻿//namespace TabloidCLI.UserInterfaceManagers
+//{
+//    internal class PostDetailManager : IUserInterfaceManager
+//    {
+//    }
+//}
