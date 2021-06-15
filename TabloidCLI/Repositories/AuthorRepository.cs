@@ -106,12 +106,13 @@ namespace TabloidCLI
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO Author (FirstName, LastName, Bio )
-                                                     VALUES (@firstName, @lastName, @bio)";
+                                        OUTPUT INSERTED.id
+                                        VALUES (@firstName, @lastName, @bio)";
                     cmd.Parameters.AddWithValue("@firstName", author.FirstName);
                     cmd.Parameters.AddWithValue("@lastName", author.LastName);
                     cmd.Parameters.AddWithValue("@bio", author.Bio);
 
-                    cmd.ExecuteNonQuery();
+                    int success = (int)cmd.ExecuteScalar();
                 }
             }
         }
@@ -187,5 +188,5 @@ namespace TabloidCLI
                 }
             }
         }
-     }
+    }
 }
