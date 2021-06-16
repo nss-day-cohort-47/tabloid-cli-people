@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -35,15 +36,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Blog blog = Choose();
-                    if (blog == null)
-                    {
-                        return this;
-                    }
-                    else
-                    {
-                        return new BlogDetailManager(this, _connectionString, blog.Id);
-                    }
+               
+                    Choose();
+                    return this;
                 case "3":
                     Add();
                     return this;
