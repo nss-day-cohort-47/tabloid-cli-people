@@ -93,7 +93,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < posts.Count; i++)
             {
                 Post post = posts[i];
-                Console.WriteLine($" {i + 1}) {post.Author}");
+                Console.WriteLine($" {i + 1}) {post.Title}");
             }
             Console.Write("> ");
 
