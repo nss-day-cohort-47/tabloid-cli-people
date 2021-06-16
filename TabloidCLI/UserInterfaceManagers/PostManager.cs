@@ -28,7 +28,7 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("Post Menu");
-            Console.WriteLine(" 1) Post Authors");
+            Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Post Details");
             Console.WriteLine(" 3) Add a post");
             Console.WriteLine(" 4) Edit Post");
@@ -75,7 +75,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Post> posts = _postRepository.GetAll();
             foreach (Post post in posts)
             {
-                Console.WriteLine(post);
+                Console.WriteLine($"{post.Title}, {post.Url}");
             }
         }
 
