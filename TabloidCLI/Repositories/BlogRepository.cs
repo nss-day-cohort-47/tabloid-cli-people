@@ -82,9 +82,7 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"UPDATE blog
                                         SET Title = @title,
-                                            URL = @url2
-
-
+                                            URL = @url
                                         WHERE id = @id";
                     cmd.Parameters.AddWithValue("@title", blog.Title);
                     cmd.Parameters.AddWithValue("@url", blog.Url);
