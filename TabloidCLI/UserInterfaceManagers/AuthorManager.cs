@@ -103,7 +103,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            Console.WriteLine("New Author");
+            Console.WriteLine("New Author"); 
             Author author = new Author();
 
             Console.Write("First Name: ");

@@ -30,7 +30,7 @@ namespace TabloidCLI.Repositories
                                                p.Title As PostTitle,
                                                p.URL AS PostUrl,
                                                p.PublishDateTime,
-                                               p.AuthorId,
+                                                 p.AuthorId,
                                                p.BlogId,
                                                a.FirstName,
                                                a.LastName,
@@ -79,7 +79,24 @@ namespace TabloidCLI.Repositories
 
         public void Insert(Post post)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post 
+                                    (Title, Url, PublishDateTime, BlogId, AuthorId)
+                                     OUTPUT INSERTED.id
+                                     VALUES (@Title, @Url, @PublishDateTime,                       @BlogId, @AuthorId)";
+                    cmd.Parameters.AddWithValue("@Title", post.Title);
+                    cmd.Parameters.AddWithValue("@Url", post.Url);
+                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@BlogId", post.Blog.Id);
+                    cmd.Parameters.AddWithValue("@AuthorId", post.Author.Id);
+
+                    int success = (int)cmd.ExecuteScalar();
+                }
+            }
         }
 
         public void Update(Post post)
