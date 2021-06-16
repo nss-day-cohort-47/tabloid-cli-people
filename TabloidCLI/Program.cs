@@ -23,7 +23,6 @@ namespace TabloidCLI
                 Console.BackgroundColor = ConsoleColor.Blue;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
-                Console.ReadKey();
              
             }
             else if (answer ==2)
@@ -31,7 +30,6 @@ namespace TabloidCLI
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
-                Console.ReadKey();
                
             }
             else if (answer == 3)
@@ -39,7 +37,6 @@ namespace TabloidCLI
                 Console.BackgroundColor = ConsoleColor.Gray;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
-                Console.ReadKey();
             }
             else if (answer == 4)
             {

@@ -35,8 +35,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
-                //case "2":
-                //    Blog blog = Choose();
+                case "2":
+                    Blog blog = Choose();
+                    return this;
                 //    if (blog == null)
                 //    {
                 //        return this;
