@@ -7,7 +7,7 @@ using TabloidCLI.Repositories;
 
 namespace TabloidCLI.Repositories
 {
-   public class BlogRepository : DatabaseConnector, IRepository<Blog>
+    public class BlogRepository : DatabaseConnector, IRepository<Blog>
     {
         public BlogRepository(string connectionString) : base(connectionString) { }
 
@@ -20,38 +20,38 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"SELECT id, title, url FROM Blog";
 
-                SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                List<Blog> blogs = new List<Blog>();
+                    List<Blog> blogs = new List<Blog>();
 
-                while (reader.Read())
-                {
-                    Blog blog = new Blog()
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                        Title = reader.GetString(reader.GetOrdinal("Title")),
-                        Url = reader.GetString(reader.GetOrdinal("URL"))
-                    };
+                        Blog blog = new Blog()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("URL"))
+                        };
 
-                    blogs.Add(blog);
+                        blogs.Add(blog);
 
-                }
+                    }
                     return blogs;
-                   
+
 
 
                 }
 
             }
         }
-            //using (SqlConnection conn = Connection)
-            //{
-            //    conn.Open();
-            //    using (SqlCommand cmd = conn.CreateCommand())
-            //    {
-            //        cmd.CommandText = @"SELECT "
-            //    }
-            //}
+        //using (SqlConnection conn = Connection)
+        //{
+        //    conn.Open();
+        //    using (SqlCommand cmd = conn.CreateCommand())
+        //    {
+        //        cmd.CommandText = @"SELECT "
+        //    }
+        //}
         public Blog Get(int id)
         {
             throw new NotImplementedException();
@@ -104,11 +104,43 @@ namespace TabloidCLI.Repositories
 
                     cmd.ExecuteNonQuery();
                 }
-            }    
+            }
         }
+        public void InsertTag(Blog blog, Tag tag)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO BlogTag (BlogId, TagId)
+                                                       VALUES (@blogId, @tagId)";
+                    cmd.Parameters.AddWithValue("@blogId", blog.Id);
+                    cmd.Parameters.AddWithValue("@tagId", tag.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void DeleteTag(int blogId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM BlogTAg 
+                                         WHERE  blogId = @blogid AND 
+                                               TagId = @tagId";
+                    cmd.Parameters.AddWithValue("@blogId", blogId);
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
 
 
 
+        }
     }
 }
