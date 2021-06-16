@@ -36,16 +36,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Blog blog = Choose();
+                    Choose();
                     return this;
-                //    if (blog == null)
-                //    {
-                //        return this;
-                //    }
-                //    else
-                //    {
-                //        return new BlogDetailManager(this, _connectionString, blog.Id);
-                //    }
                 case "3":
                     Add();
                     return this;
