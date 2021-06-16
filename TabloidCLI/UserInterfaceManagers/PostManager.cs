@@ -218,6 +218,20 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = Url;
             }
+            Console.Write("New Publish Date(blank to leave unchanged): ");
+            string publishDate = Console.ReadLine();
+            DateTime newdate = new DateTime();
+            if (!string.IsNullOrWhiteSpace(publishDate))
+            {
+                newdate = DateTime.Parse(publishDate);
+                postToEdit.PublishDateTime = newdate;
+            }
+            Console.Write("New Author: ");
+            postToEdit.Author = AuthorChoose();
+
+            Console.Write("New Blog: ");
+            postToEdit.Blog = BLogChoose();
+
             //Console.Write("New bio (blank to leave unchanged: ");
             //string PublishDateTime = Console.ReadLine();
             //if (!string.IsNullOrWhiteSpace(PublishDateTime))
