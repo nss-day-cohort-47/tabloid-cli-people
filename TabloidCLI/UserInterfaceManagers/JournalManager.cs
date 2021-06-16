@@ -128,13 +128,13 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New title (blank to leave unchanged: ");
+            Console.Write("New title (blank to leave unchanged): ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
                 entryToEdit.Title = title;
             }
-            Console.Write("Edit content (blank to leave unchanged: ");
+            Console.Write("Edit content (blank to leave unchanged): ");
             string content = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(content))
             {
