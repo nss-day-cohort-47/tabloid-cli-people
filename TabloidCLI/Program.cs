@@ -16,12 +16,14 @@ namespace TabloidCLI
             Console.WriteLine("1) Blue background with black text");
             Console.WriteLine("2) White background with black text");
             Console.WriteLine("3) Gray background with black text");
+            Console.WriteLine("4) Default");
             int answer = int.Parse(Console.ReadLine());
             if (answer ==1)
             {
                 Console.BackgroundColor = ConsoleColor.Blue;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
+                Console.ReadKey();
              
             }
             else if (answer ==2)
@@ -29,6 +31,7 @@ namespace TabloidCLI
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
+                Console.ReadKey();
                
             }
             else if (answer == 3)
@@ -36,10 +39,11 @@ namespace TabloidCLI
                 Console.BackgroundColor = ConsoleColor.Gray;
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Black;
+                Console.ReadKey();
             }
-            else
+            else if (answer == 4)
             {
-
+               
             }
 
 
