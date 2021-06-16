@@ -152,36 +152,36 @@ namespace TabloidCLI.UserInterfaceManagers
                 }
             }
 
-            Blog BLogChoose(string prompt = null)
-            {
-                if (prompt == null)
-                {
-                    prompt = "Please choose a Blog:";
-                }
+            //Blog BLogChoose(string prompt = null)
+            //{
+            //    if (prompt == null)
+            //    {
+            //        prompt = "Please choose a Blog:";
+            //    }
 
-                Console.WriteLine(prompt);
+            //    Console.WriteLine(prompt);
 
-                List<Blog> blogs = _blogRepository.GetAll();
+            //    List<Blog> blogs = _blogRepository.GetAll();
 
-                for (int i = 0; i < blogs.Count; i++)
-                {
-                    Blog blog = blogs[i];
-                    Console.WriteLine($" {i + 1}) {blog.Title}");
-                }
-                Console.Write("> ");
+            //    for (int i = 0; i < blogs.Count; i++)
+            //    {
+            //        Blog blog = blogs[i];
+            //        Console.WriteLine($" {i + 1}) {blog.Title}");
+            //    }
+            //    Console.Write("> ");
 
-                string input = Console.ReadLine();
-                try
-                {
-                    int choice = int.Parse(input);
-                    return blogs[choice - 1];
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Invalid Selection");
-                    return null;
-                }
-            }
+            //    string input = Console.ReadLine();
+            //    try
+            //    {
+            //        int choice = int.Parse(input);
+            //        return blogs[choice - 1];
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine("Invalid Selection");
+            //        return null;
+            //    }
+            //}
 
 
 
