@@ -62,8 +62,12 @@ namespace TabloidCLI.Repositories
                     cmd.CommandText = @"SELECT p.Id AS PostId,
                                                p.Title,
                                                p.Url,
-                                               p.PublishDateTime
+                                               p.PublishDateTime,
+                                               t.Id AS TagId,
+                                               t.Name
                                           FROM Post p 
+                                              LEFT JOIN PostTag pt on p.id
+                                              LEFT JOIN Tag t on t.Id = pt.TagId
                                          WHERE p.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -84,14 +88,14 @@ namespace TabloidCLI.Repositories
                             };
                         }
 
-                        //if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
-                        //{
-                        //    post.Tags.Add(new Tag()
-                        //    {
-                        //        Id = reader.GetInt32(reader.GetOrdinal("TagId")),
-                        //        Name = reader.GetString(reader.GetOrdinal("Name")),
-                        //    });
-                        //}
+                        if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        {
+                            post.Tags.Add(new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                            });
+                        }
                     }
 
                     reader.Close();
@@ -214,6 +218,39 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"UPDATE Post SET IsDeleted = 1 WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void InsertTag(Post post, Tag tag)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO PostTag (PostId, TagId)
+                                                       VALUES (@postId,                                                   @tagId)";
+                    cmd.Parameters.AddWithValue("@postId", post.Id);
+                    cmd.Parameters.AddWithValue("@tagId", tag.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void DeleteTag(int postId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM PostTAg 
+                                         WHERE PostId = @postid AND 
+                                               TagId = @tagId";
+                    cmd.Parameters.AddWithValue("@postId", postId);
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
 
                     cmd.ExecuteNonQuery();
                 }
