@@ -20,7 +20,7 @@ namespace TabloidCLI.UserInterfaceManagers
                                                Title,
                                                Content,
                                                CreateDateTime
-                                          FROM Journal";
+                                          FROM Journal WHERE IsDeleted = 0";
 
                     List<Journal> entries = new List<Journal>();
 

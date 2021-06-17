@@ -18,7 +18,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT id, title, url FROM Blog";
+                    cmd.CommandText = @"SELECT id, title, url FROM Blog WHERE IsDeleted = 0";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
