@@ -20,7 +20,7 @@ namespace TabloidCLI.UserInterfaceManagers
                                                Title,
                                                Content,
                                                CreateDateTime
-                                          FROM Journal";
+                                          FROM Journal WHERE IsDeleted = 0";
 
                     List<Journal> entries = new List<Journal>();
 
@@ -146,7 +146,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM journal WHERE id = @id";
+                    cmd.CommandText = @"UPDATE journal SET IsDeleted = 1 WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();

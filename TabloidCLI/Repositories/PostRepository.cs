@@ -17,7 +17,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * From Post";
+                    cmd.CommandText = @"SELECT * From Post WHERE IsDeleted = 0";
                     List<Post> posts = new List<Post>();
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -212,7 +212,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Post WHERE id = @id";
+                    cmd.CommandText = @"UPDATE Post SET IsDeleted = 1 WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
