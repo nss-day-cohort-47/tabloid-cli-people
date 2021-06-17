@@ -66,7 +66,7 @@ namespace TabloidCLI.Repositories
                                                t.Id AS TagId,
                                                t.Name
                                           FROM Post p 
-                                              LEFT JOIN PostTag pt on p.id
+                                              LEFT JOIN PostTag pt on p.id =                                pt.postid
                                               LEFT JOIN Tag t on t.Id = pt.TagId
                                          WHERE p.id = @id";
 
