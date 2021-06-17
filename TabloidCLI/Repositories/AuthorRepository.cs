@@ -163,7 +163,7 @@ namespace TabloidCLI
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO AuthorTag (AuthorId, TagId)
-                                                       VALUES (@authorId, @tagId)";
+                                                       VALUES (@authorId,                                                   @tagId)";
                     cmd.Parameters.AddWithValue("@authorId", author.Id);
                     cmd.Parameters.AddWithValue("@tagId", tag.Id);
                     cmd.ExecuteNonQuery();
